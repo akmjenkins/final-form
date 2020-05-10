@@ -1070,6 +1070,10 @@ function createForm<FormValues: FormValuesShape>(
       const result = onSubmit(formState.values, api, complete)
 
       if (!completeCalled) {
+        
+        // observable
+        if(result && result.toPromise) result = result.toPromise();
+        
         if (result && isPromise(result)) {
           // onSubmit is async with a Promise
           notifyFormListeners() // let everyone know we are submitting
